@@ -9,9 +9,9 @@
 		<artifactId>et1911</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>com.etoak.et1911</groupId>
+	
 	<artifactId>springmvc-01-hello</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	
 	<packaging>war</packaging>
 	<name>springmvc-01-hello Maven Webapp</name>
 	<url>http://maven.apache.org</url>
