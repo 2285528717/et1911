@@ -16,6 +16,8 @@
 			expression="org.springframework.stereotype.Controller" />
 		<context:include-filter type="annotation"
 			expression="org.springframework.web.bind.annotation.RestController" />
+		<context:include-filter type="annotation"
+			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 
 		<!-- 排除@service -->
 		<context:exclude-filter type="annotation"
@@ -30,7 +32,7 @@
 	<!-- 3.静态文件由servlet容器处理 -->
 	<mvc:default-servlet-handler />
 	<!-- 定义图片访问方式 -->
-	<mvc:resources location="file:d/upload/" mapping="/pic/**"/>
+	<mvc:resources location="file:d:/upload/" mapping="/pic/**"/>
 	<!-- 4.整合Thymeleaf -->
 	<bean id="templateResolver"
 		class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">

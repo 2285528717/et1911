@@ -38,3 +38,25 @@ CREATE TABLE if not EXISTS t_springmvc_car(
 	summary VARCHAR(512) COMMENT '概述',
 	create_time datetime COMMENT '创建时间'	
 );
+
+SELECT 
+		tc.id,
+		tc.brand, 
+	    tc.series, 
+	    tc.price, 
+	    tc.licensing_time as licensingTime,
+	    tc.level,
+	    tc.gearbox,
+	    tc.output_volume as outputVolume, 
+	    tc.mileage, 
+	    tc.location,
+	    tc.pic,
+	    tc.summary,
+	    tc.create_time as createTime,
+				t1.name as levelName,
+				t2.name as gearboxName,
+				t3.name as outputVolumeName
+ FROM t_springmvc_car tc 
+ left join t_springmvc_dict t1 on tc.level = t1.value and t1.group_id='level'
+ left join t_springmvc_dict t2 on tc.gearbox = t2.value and t2.group_id='gearbox'
+ left join t_springmvc_dict t3 on tc.output_volume = t3.value and t3.group_id='output_volume'

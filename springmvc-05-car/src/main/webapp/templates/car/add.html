@@ -15,8 +15,7 @@ body {
 	background-image: -webkit-linear-gradient(to right, #7A88FF, #7AFFAF);
 	background-image: -moz-linear-gradient(to right, #7A88FF, #7AFFAF);
 	background-image: -o-linear-gradient(to right, #7A88FF, #7AFFAF);
-	background-image: -webkit-gradient(linear, 100% 0, 0 0, from(#7A88FF),
-		to(#7AFFAF));
+	background-image: -webkit-gradient(linear, 100% 0, 0 0, from(#7A88FF),to(#7AFFAF));
 	background-image: linear-gradient(to right, #7A88FF, #7AFFAF);
 }
 
@@ -26,6 +25,9 @@ h2 {
 </style>
 </head>
 <body>
+<div>
+	<span th:text="${paramError}"></span>
+</div>
 	<div id="form">
 		<h2 class="form-horizontal">添加车辆</h2>
 		<form id="addForm" th:action="@{/car/add}" method="post"
@@ -149,7 +151,6 @@ h2 {
 			//定义contextPath
 			const path = /*[[${#request.getContextPath()}]]*/
 			
-
 			laydate.render({
 				  elem: '#licensingTime',
 				  type: 'month'
@@ -162,7 +163,7 @@ h2 {
 				//查询变速箱
 				et1911.queryGearbox()
 				
-				et1911.validateForm()
+				//et1911.validateForm()
 			})
 			
 			let et1911 = {

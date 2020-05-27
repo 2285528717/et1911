@@ -32,4 +32,82 @@
 			now()
 		)
 	</insert>
+	<select id="queryList" parameterType="CarVo" resultType="carVo">
+		SELECT 
+			tc.id,
+			tc.brand, 
+		    tc.series, 
+		    tc.price, 
+		    tc.licensing_time as licensingTime,
+		    tc.level,
+		    tc.gearbox,
+		    tc.output_volume as outputVolume, 
+		    tc.mileage, 
+		    tc.location,
+		    tc.pic,
+		    tc.summary,
+		    tc.create_time as createTime,
+					t1.name as levelName,
+					t2.name as gearboxName,
+					t3.name as outputVolumeName
+	 FROM t_springmvc_car tc 
+	 left join t_springmvc_dict t1 on tc.level = t1.value and t1.group_id='level'
+	 left join t_springmvc_dict t2 on tc.gearbox = t2.value and t2.group_id='gearbox'
+	 left join t_springmvc_dict t3 on tc.output_volume = t3.value and t3.group_id='output_volume'
+	 
+		 <where>
+				<if test="brand!=null and brand!=''">
+					and brand = #{brand}
+				</if>
+				<if test="series!=null and series!=''">
+					and series = #{series}
+				</if>
+				<if test="level!=null and level!=''">
+					and level = #{level}
+				</if>
+				<if test="gearbox!=null and gearbox!=''">
+					and gearbox = #{gearbox}
+				</if>
+				<if test="outputVolume!=null and outputVolume!=''">
+					and output_volume = #{outputVolume}
+				</if>
+				<if test="location!=null and location!=''">
+					and location like concat('%',#{location},'%')
+				</if>
+				<if test="priceMapList !=null and priceMapList.size() !=0">
+					and 
+					<foreach collection="priceMapList" item="priceMap" open="(" close=")" separator="OR">
+						price between #{priceMap.start} and #{priceMap.end}
+					</foreach>
+				</if>
+				<if test="startYear != null and startYear != 0">
+					and str_to_date(licensing_time,'%Y-%m')
+					>= DATE_SUB(CURDATE(),interval #{startYear} YEAR)
+				</if>
+				<if test="endYear != null and endYear != 0">
+					<![CDATA[
+					and str_to_date(licensing_time,'%Y-%m')
+					 <= DATE_SUB(CURDATE(),interval #{endYear} YEAR)
+					]]>
+				</if>
+			</where>
+	</select>
+	
+	<select id="getAllBrand" resultType="string">
+		select brand from t_springmvc_car group by brand
+	</select>
+	
+	<!-- 查询所有车系 -->
+	<select id="getSeriesByBrand" parameterType="string" resultType="string">
+		select series from t_springmvc_car
+		<where>
+			<if test="brand !=null and brand != '' ">
+				and brand = #{brand}
+			</if>
+		</where>
+		group by series
+		<if test="brand == null or brand == ''">
+			limit 10
+		</if>
+	</select>
 </mapper>
